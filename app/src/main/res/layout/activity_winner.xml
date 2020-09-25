@@ -59,7 +59,7 @@
 
     <TextView
         android:id="@+id/winnerTxtStatus"
-        android:layout_width="367dp"
+        android:layout_width="388dp"
         android:layout_height="65dp"
         android:background="#CDE8E8E8"
         android:gravity="center"

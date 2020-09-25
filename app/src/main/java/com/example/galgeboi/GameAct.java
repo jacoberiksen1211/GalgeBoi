@@ -41,10 +41,9 @@ public class GameAct extends AppCompatActivity implements View.OnClickListener {
         name = getIntent().getStringExtra("name");
         txtStatus.setText("Velkommen til det nye spil, " + name);
         txtWord.setText(galgelogik.getSynligtOrd());
-        //print for check
-        System.out.println("ordet er: " +galgelogik.getOrdet());
 
-        //setup image drawable integers from r file for easier switching in updateUI()
+
+        //setup image drawable integers from r file for easier image-switching in updateUI()
         imgInts[0] = R.drawable.forkert0;
         imgInts[1] = R.drawable.forkert1;
         imgInts[2] = R.drawable.forkert2;
@@ -77,7 +76,7 @@ public class GameAct extends AppCompatActivity implements View.OnClickListener {
         if(galgelogik.erSpilletVundet()){
             //adding game to history
             history.addGame(new GameObj(name,galgelogik.getOrdet(),galgelogik.getAntalForkerteBogstaver(), true));
-            //moving to winner page
+            //moving to winner act
             Intent i = new Intent(this, WinnerAct.class);
             i.putExtra("name", name);
             i.putExtra("word", galgelogik.getOrdet());
@@ -86,7 +85,14 @@ public class GameAct extends AppCompatActivity implements View.OnClickListener {
             finish();
         }
         else if(galgelogik.erSpilletTabt()){
+            //add game to history
             history.addGame(new GameObj(name,galgelogik.getOrdet(),galgelogik.getAntalForkerteBogstaver(), false));
+            //moving to loser act
+            Intent i = new Intent(this, LoserAct.class);
+            i.putExtra("name", name);
+            i.putExtra("word", galgelogik.getOrdet());
+            i.putExtra("lives", galgelogik.getAntalForkerteBogstaver());
+            startActivity(i);
             finish();
         }
 

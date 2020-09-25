@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rain_backgorund"
+    tools:context=".LoserAct">
+
+    <TextView
+        android:id="@+id/loserTxtStatus"
+        android:layout_width="390dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="8dp"
+        android:background="#80090909"
+        android:gravity="center"
+        android:text="Status"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loserTxtTitle" />
+
+    <Button
+        android:id="@+id/loserBtnHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="#26A69A"
+        android:text="se historik"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loserBtnRetry" />
+
+    <Button
+        android:id="@+id/loserBtnEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#EF5350"
+        android:text="Afslut"
+        app:layout_constraintBottom_toBottomOf="@+id/loserBtnRetry"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/loserBtnRetry"
+        app:layout_constraintTop_toTopOf="@+id/loserBtnRetry" />
+
+    <Button
+        android:id="@+id/loserBtnRetry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="#66BB6A"
+        android:text="Spil igen"
+        app:layout_constraintEnd_toStartOf="@+id/loserBtnEnd"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loserTxtStatus" />
+
+    <TextView
+        android:id="@+id/loserTxtTitle"
+        android:layout_width="388dp"
+        android:layout_height="126dp"
+        android:layout_marginTop="212dp"
+        android:gravity="center"
+        android:text="DU TABTE"
+        android:textColor="#FFFFFF"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
