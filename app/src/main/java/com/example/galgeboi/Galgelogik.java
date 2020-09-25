@@ -108,7 +108,7 @@ public class Galgelogik {
       sidsteBogstavVarKorrekt = false;
       System.out.println("Bogstavet var IKKE korrekt: " + bogstav);
       antalForkerteBogstaver = antalForkerteBogstaver + 1;
-      if (antalForkerteBogstaver > 6) {
+      if (antalForkerteBogstaver >= 6) { //har rettet til " >= 6 " i stedet for " > 6 ", da der kun er grafik til 6 fejl IKKE 7. man taber efter 6 fejl så.
         spilletErTabt = true;
       }
     }
