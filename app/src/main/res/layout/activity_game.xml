@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameAct">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="344dp"
+        android:layout_height="131dp"
+        android:text="@string/game_info"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameBtnEnd"
+        app:layout_constraintVertical_bias="0.264" />
+
+    <Button
+        android:id="@+id/gameBtnEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="#EF5350"
+        android:text="Giv Op"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.894"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameBtnGuess" />
+
+    <EditText
+        android:id="@+id/inputLetter"
+        android:layout_width="74dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/gameBtnGuess"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameTxtStatus" />
+
+    <Button
+        android:id="@+id/gameBtnGuess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#66BB6A"
+        android:text="Gæt"
+        app:layout_constraintBottom_toBottomOf="@+id/inputLetter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/inputLetter"
+        app:layout_constraintTop_toTopOf="@+id/inputLetter"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <TextView
+        android:id="@+id/gameTxtWord"
+        android:layout_width="287dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="24dp"
+        android:text="ordet"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgGalge" />
+
+    <TextView
+        android:id="@+id/gameTxtUsed"
+        android:layout_width="150dp"
+        android:layout_height="147dp"
+        android:text="Brugte Bogstaver"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imgGalge"
+        app:layout_constraintTop_toTopOf="@+id/imgGalge" />
+
+    <ImageView
+        android:id="@+id/imgGalge"
+        android:layout_width="174dp"
+        android:layout_height="198dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/forkert0"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/gameTxtUsed"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/gameTxtStatus"
+        android:layout_width="356dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
+        android:background="#DADADA"
+        android:text="Status:"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameTxtWord" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

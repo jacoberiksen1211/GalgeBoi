@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/glitter"
+    tools:context=".WinnerAct">
+
+    <ImageView
+        android:id="@+id/imgTrophy"
+        android:layout_width="254dp"
+        android:layout_height="258dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/winnerTxtTitle"
+        app:srcCompat="@drawable/trophy" />
+
+    <TextView
+        android:id="@+id/winnerTxtTitle"
+        android:layout_width="388dp"
+        android:layout_height="123dp"
+        android:layout_marginTop="16dp"
+        android:background="#8AFFFFFF"
+        android:gravity="center"
+        android:text="DU HAR VUNDET!"
+        android:textColor="#000000"
+        android:textSize="42sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/winnerBtnEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="#EF5350"
+        android:text="Afslut"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/winnerBtnRetry"
+        app:layout_constraintTop_toBottomOf="@+id/winnerTxtStatus" />
+
+    <Button
+        android:id="@+id/winnerBtnRetry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#66BB6A"
+        android:text="Spil igen"
+        app:layout_constraintBottom_toBottomOf="@+id/winnerBtnEnd"
+        app:layout_constraintEnd_toStartOf="@+id/winnerBtnEnd"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/winnerBtnEnd" />
+
+    <TextView
+        android:id="@+id/winnerTxtStatus"
+        android:layout_width="367dp"
+        android:layout_height="65dp"
+        android:background="#CDE8E8E8"
+        android:gravity="center"
+        android:text="Status"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgTrophy" />
+
+    <Button
+        android:id="@+id/winnerBtnHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="#26A69A"
+        android:text="se historik"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/winnerBtnRetry" />
+</androidx.constraintlayout.widget.ConstraintLayout>
