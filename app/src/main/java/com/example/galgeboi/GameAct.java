@@ -10,20 +10,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import static com.example.galgeboi.MainActivity.history;
 
 public class GameAct extends AppCompatActivity implements View.OnClickListener {
-    Galgelogik galgelogik = new Galgelogik();
     Button btnGuess, btnEnd;
     TextView txtWord, txtStatus, txtUsed;
     EditText inputLetter;
     ImageView imgGalge;
-    String name;
+    String playerName;
     int imgInts[] = new int[7];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        //reset game first
+        Galgelogik.getInstance().resetGame();
         //getting elements
         btnGuess = findViewById(R.id.gameBtnGuess);
         btnEnd = findViewById(R.id.gameBtnEnd);
@@ -33,14 +33,14 @@ public class GameAct extends AppCompatActivity implements View.OnClickListener {
         inputLetter = findViewById(R.id.inputLetter);
         imgGalge = findViewById(R.id.imgGalge);
 
-        //buttonclick
+        //button onclicklisteners
         btnGuess.setOnClickListener(this);
         btnEnd.setOnClickListener(this);
 
-        //setup name and welcome status and word
-        name = getIntent().getStringExtra("name");
-        txtStatus.setText("Velkommen til det nye spil, " + name);
-        txtWord.setText(galgelogik.getSynligtOrd());
+        //setup name, welcome status and word (get name from intent)
+        playerName = getIntent().getStringExtra("name");
+        txtStatus.setText("Velkommen til det nye spil, " + playerName);
+        txtWord.setText(Galgelogik.getInstance().getVisibleWord());
 
 
         //setup image drawable integers from r file for easier image-switching in updateUI()
@@ -61,7 +61,7 @@ public class GameAct extends AppCompatActivity implements View.OnClickListener {
                 txtStatus.setText("Indtast kun ét bogstav.");
                 return;
             }
-            galgelogik.gætBogstav(letter);
+            Galgelogik.getInstance().guessLetter(letter);
             inputLetter.setText("");//fjerner indtastet bogstav.
 
             updateUI();
@@ -72,50 +72,50 @@ public class GameAct extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void updateUI(){
-        //hvis spillet er done
-        if(galgelogik.erSpilletVundet()){
+        //hvis spillet er vundet
+        if(Galgelogik.getInstance().isGameWon()){
             //adding game to history
-            history.addGame(new GameObj(name,galgelogik.getOrdet(),galgelogik.getAntalForkerteBogstaver(), true));
-            //moving to winner act
+            Galgelogik.getInstance().addGameToHistory(new historyGameObj(playerName,Galgelogik.getInstance().getFullWord(),Galgelogik.getInstance().getWrongLetterCount(), true, "freshDate"));
+            //create intent and add name to data transfer
             Intent i = new Intent(this, WinnerAct.class);
-            i.putExtra("name", name);
-            i.putExtra("word", galgelogik.getOrdet());
-            i.putExtra("lives", galgelogik.getAntalForkerteBogstaver());
+            i.putExtra("name", playerName);
+            //moving to winner act
             startActivity(i);
             finish();
         }
-        else if(galgelogik.erSpilletTabt()){
-            //add game to history
-            history.addGame(new GameObj(name,galgelogik.getOrdet(),galgelogik.getAntalForkerteBogstaver(), false));
-            //moving to loser act
+        //hvis spillet er tabt
+        else if(Galgelogik.getInstance().isGameLost()){
+            //Add new gameobject to history with the given information
+            Galgelogik.getInstance().addGameToHistory(new historyGameObj(playerName,Galgelogik.getInstance().getFullWord(),Galgelogik.getInstance().getWrongLetterCount(), false, "freshDate"));
+            //create intent and add name to data transfer
             Intent i = new Intent(this, LoserAct.class);
-            i.putExtra("name", name);
-            i.putExtra("word", galgelogik.getOrdet());
-            i.putExtra("lives", galgelogik.getAntalForkerteBogstaver());
+            i.putExtra("name", playerName);
+            //moving to loser act
             startActivity(i);
             finish();
         }
+        //hvis spillet fortsætter:
 
         //opdater ord
-        txtWord.setText(galgelogik.getSynligtOrd());
+        txtWord.setText(Galgelogik.getInstance().getVisibleWord());
 
         //opdater brugte bogstaver:
-        if(!galgelogik.getBrugteBogstaver().isEmpty()) {
+        if(!Galgelogik.getInstance().getUsedLetters().isEmpty()) {
             String usedLetterString = "Brugte bogstaver: \n";
-            for (String usedLetter : galgelogik.getBrugteBogstaver()) {
+            for (String usedLetter : Galgelogik.getInstance().getUsedLetters()) {
                 usedLetterString += usedLetter + " ";
             }
             txtUsed.setText(usedLetterString);
         }
         //opdater billede
-        imgGalge.setImageResource(imgInts[galgelogik.getAntalForkerteBogstaver()]);
+        imgGalge.setImageResource(imgInts[Galgelogik.getInstance().getWrongLetterCount()]);
 
-        //opdater status
-        if(galgelogik.erSidsteBogstavKorrekt()){
+        //opdater status tekst
+        if(Galgelogik.getInstance().isLastGuessCorrect()){
             txtStatus.setText("Du gættede rigtigt!");
         }
         else{
-            txtStatus.setText("Du gættede forkert. Du har " + (6 - galgelogik.getAntalForkerteBogstaver()) + " forsøg igen før GalgeBoi bliver hængt.");
+            txtStatus.setText("Du gættede forkert. Du har " + (6 - Galgelogik.getInstance().getWrongLetterCount()) + " forsøg igen før GalgeBoi bliver hængt.");
         }
 
     }

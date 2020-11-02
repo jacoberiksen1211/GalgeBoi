@@ -1,5 +1,7 @@
 package com.example.galgeboi;
 
+import android.content.Context;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,128 +12,131 @@ import java.util.HashSet;
 import java.util.Random;
 
 public class Galgelogik {
-  /** AHT afprøvning er muligeOrd synlig på pakkeniveau */
-  ArrayList<String> muligeOrd = new ArrayList<String>();
-  private String ordet;
-  private ArrayList<String> brugteBogstaver = new ArrayList<String>();
-  private String synligtOrd;
-  private int antalForkerteBogstaver;
-  private boolean sidsteBogstavVarKorrekt;
-  private boolean spilletErVundet;
-  private boolean spilletErTabt;
+  private HistoryLogic history;
+  private ArrayList<String> wordList = new ArrayList<String>();
+  private String fullWord;
+  private ArrayList<String> usedLetters = new ArrayList<String>();
+  private String visibleWord;
+  private int wrongLetterCount;
+  private boolean lastGuessCorrect;
+  private boolean gameWon;
+  private boolean gameLost;
 
-  public Galgelogik() {
-    muligeOrd.add("bil");
-    muligeOrd.add("computer");
-    muligeOrd.add("programmering");
-    muligeOrd.add("motorvej");
-    muligeOrd.add("busrute");
-    muligeOrd.add("gangsti");
-    muligeOrd.add("skovsnegl");
-    muligeOrd.add("solsort");
-    muligeOrd.add("nitten");
-    muligeOrd.add("telefon");
-    muligeOrd.add("kaffe");
-    muligeOrd.add("kniv");
-    muligeOrd.add("æbleskive");
-    muligeOrd.add("toilet");
-    muligeOrd.add("skolebænk");
-    nulstil();
+  //setup singleton
+  private static Galgelogik instance = null;
+  //singleton has private constructor
+  private Galgelogik(){
+  }
+  //getInstance to access singleton
+  public static Galgelogik getInstance(){
+    if(instance == null){
+      instance = new Galgelogik();
+    }
+    return instance;
   }
 
-
-  public ArrayList<String> getBrugteBogstaver() {
-    return brugteBogstaver;
+  //Initiates history, adds words to wordlist and resets game state
+  public void initGame(Context context){
+    history = new HistoryLogic(context);
+    wordList.add("bil");
+    wordList.add("computer");
+    wordList.add("programmering");
+    wordList.add("motorvej");
+    wordList.add("busrute");
+    wordList.add("gangsti");
+    wordList.add("skovsnegl");
+    wordList.add("solsort");
+    wordList.add("nitten");
+    wordList.add("telefon");
+    wordList.add("kaffe");
+    wordList.add("kniv");
+    wordList.add("æbleskive");
+    wordList.add("toilet");
+    wordList.add("skolebænk");
+    resetGame();
   }
 
-  public String getSynligtOrd() {
-    return synligtOrd;
+  public ArrayList<String> getUsedLetters() {
+    return usedLetters;
   }
 
-  public String getOrdet() {
-    return ordet;
+  public String getVisibleWord() {
+    return visibleWord;
   }
 
-  public int getAntalForkerteBogstaver() {
-    return antalForkerteBogstaver;
+  public String getFullWord() {
+    return fullWord;
   }
 
-  public boolean erSidsteBogstavKorrekt() {
-    return sidsteBogstavVarKorrekt;
+  public int getWrongLetterCount() {
+    return wrongLetterCount;
   }
 
-  public boolean erSpilletVundet() {
-    return spilletErVundet;
+  public boolean isLastGuessCorrect() {
+    return lastGuessCorrect;
   }
 
-  public boolean erSpilletTabt() {
-    return spilletErTabt;
+  public boolean isGameWon() {
+    return gameWon;
   }
 
-  public boolean erSpilletSlut() {
-    return spilletErTabt || spilletErVundet;
+  public boolean isGameLost() {
+    return gameLost;
   }
 
-
-  public void nulstil() {
-    brugteBogstaver.clear();
-    antalForkerteBogstaver = 0;
-    spilletErVundet = false;
-    spilletErTabt = false;
-    if (muligeOrd.isEmpty()) throw new IllegalStateException("Listen over ord er tom!");
-    ordet = muligeOrd.get(new Random().nextInt(muligeOrd.size()));
-    opdaterSynligtOrd();
+  public ArrayList<historyGameObj> getGameHistory(){
+    return history.getGameList();
+  }
+  public void addGameToHistory(historyGameObj game){
+    history.addGame(game);
   }
 
+  public void resetGame() {
+    usedLetters.clear();
+    wrongLetterCount = 0;
+    gameWon = false;
+    gameLost = false;
+    if (wordList.isEmpty()) throw new IllegalStateException("Listen over ord er tom!");
+    fullWord = wordList.get(new Random().nextInt(wordList.size()));
+    updateVisibleWord();
+  }
 
-  private void opdaterSynligtOrd() {
-    synligtOrd = "";
-    spilletErVundet = true;
-    for (int n = 0; n < ordet.length(); n++) {
-      String bogstav = ordet.substring(n, n + 1);
-      if (brugteBogstaver.contains(bogstav)) {
-        synligtOrd = synligtOrd + bogstav;
+  private void updateVisibleWord() {
+    visibleWord = "";
+    gameWon = true;
+    for (int n = 0; n < fullWord.length(); n++) {
+      String bogstav = fullWord.substring(n, n + 1);
+      if (usedLetters.contains(bogstav)) {
+        visibleWord = visibleWord + bogstav;
       } else {
-        synligtOrd = synligtOrd + "*";
-        spilletErVundet = false;
+        visibleWord = visibleWord + "*";
+        gameWon = false;
       }
     }
   }
 
-  public void gætBogstav(String bogstav) {
-    if (bogstav.length() != 1) return;
-    System.out.println("Der gættes på bogstavet: " + bogstav);
-    if (brugteBogstaver.contains(bogstav)) return;
-    if (spilletErVundet || spilletErTabt) return;
+  public void guessLetter(String letter) {
+    if (letter.length() != 1) return;
+    System.out.println("Der gættes på bogstavet: " + letter);
+    if (usedLetters.contains(letter)) return;
+    if (gameWon || gameLost) return;
 
-    brugteBogstaver.add(bogstav);
+    usedLetters.add(letter);
 
-    if (ordet.contains(bogstav)) {
-      sidsteBogstavVarKorrekt = true;
-      System.out.println("Bogstavet var korrekt: " + bogstav);
+    if (fullWord.contains(letter)) {
+      lastGuessCorrect = true;
+      System.out.println("Bogstavet var korrekt: " + letter);
     } else {
       // Vi gættede på et bogstav der ikke var i ordet.
-      sidsteBogstavVarKorrekt = false;
-      System.out.println("Bogstavet var IKKE korrekt: " + bogstav);
-      antalForkerteBogstaver = antalForkerteBogstaver + 1;
-      if (antalForkerteBogstaver >= 6) { //har rettet til " >= 6 " i stedet for " > 6 ", da der kun er grafik til 6 fejl IKKE 7. man taber efter 6 fejl så.
-        spilletErTabt = true;
+      lastGuessCorrect = false;
+      System.out.println("Bogstavet var IKKE korrekt: " + letter);
+      wrongLetterCount = wrongLetterCount + 1;
+      if (wrongLetterCount >= 6) { //har rettet til " >= 6 " i stedet for " > 6 ", da der kun er grafik til 6 fejl IKKE 7. man taber efter 6 fejl så.
+        gameLost = true;
       }
     }
-    opdaterSynligtOrd();
+    updateVisibleWord();
   }
-
-  public void logStatus() {
-    System.out.println("---------- ");
-    System.out.println("- ordet (skult) = " + ordet);
-    System.out.println("- synligtOrd = " + synligtOrd);
-    System.out.println("- forkerteBogstaver = " + antalForkerteBogstaver);
-    System.out.println("- brugeBogstaver = " + brugteBogstaver);
-    if (spilletErTabt) System.out.println("- SPILLET ER TABT");
-    if (spilletErVundet) System.out.println("- SPILLET ER VUNDET");
-    System.out.println("---------- ");
-  }
-
 
   public static String hentUrl(String url) throws IOException {
     System.out.println("Henter data fra " + url);
@@ -167,11 +172,11 @@ public class Galgelogik {
 
     System.out.println("data = " + data);
     System.out.println("data = " + Arrays.asList(data.split("\\s+")));
-    muligeOrd.clear();
-    muligeOrd.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
+    wordList.clear();
+    wordList.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
 
-    System.out.println("muligeOrd = " + muligeOrd);
-    nulstil();
+    System.out.println("muligeOrd = " + wordList);
+    resetGame();
   }
 
 
@@ -190,7 +195,7 @@ public class Galgelogik {
     String data = hentUrl("https://docs.google.com/spreadsheets/d/" + id + "/export?format=csv&id=" + id);
     int linjeNr = 0;
 
-    muligeOrd.clear();
+    wordList.clear();
     for (String linje : data.split("\n")) {
       if (linjeNr<20) System.out.println("Læst linje = " + linje); // udskriv de første 20 linjer
       if (linjeNr++ < 1 ) continue; // Spring første linje med kolonnenavnene over
@@ -200,10 +205,10 @@ public class Galgelogik {
       if (sværhedsgrad.isEmpty() || ordet.isEmpty()) continue; // spring over linjer med tomme ord
       if (!sværhedsgrader.contains(sværhedsgrad)) continue; // filtrér på sværhedsgrader
       System.out.println("Tilføjer "+ordet+", der har sværhedsgrad "+sværhedsgrad);
-      muligeOrd.add(ordet);
+      wordList.add(ordet);
     }
 
-    System.out.println("muligeOrd = " + muligeOrd);
-    nulstil();
+    System.out.println("muligeOrd = " + wordList);
+    resetGame();
   }
 }

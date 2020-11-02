@@ -12,7 +12,7 @@ public class WinnerAct extends AppCompatActivity implements View.OnClickListener
     private TextView txtTitle, txtStatus;
     private Button btnRetry, btnEnd, btnHistory;
     private String name, word;
-    private int antalForkerte;
+    private int wrongLetterCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,11 +28,11 @@ public class WinnerAct extends AppCompatActivity implements View.OnClickListener
         btnHistory.setOnClickListener(this);
 
         name = getIntent().getStringExtra("name");
-        word = getIntent().getStringExtra("word");
-        antalForkerte = getIntent().getIntExtra("lives",9999);
+        word = Galgelogik.getInstance().getFullWord();
+        wrongLetterCount = Galgelogik.getInstance().getWrongLetterCount();
 
         txtTitle.setText("Tillykke " + name + "!\nDU HAR VUNDET!");
-        txtStatus.setText("Du gættede ordet \"" + word + "\"\n med kun " + antalForkerte + " forkerte gæt");
+        txtStatus.setText("Du gættede ordet \"" + word + "\"\n med kun " + wrongLetterCount + " forkerte gæt");
     }
 
     @Override
@@ -49,7 +49,6 @@ public class WinnerAct extends AppCompatActivity implements View.OnClickListener
         else if(v==btnHistory){
             Intent i = new Intent(this, HistoryAct.class);
             startActivity(i);
-            finish();
         }
     }
 }

@@ -2,20 +2,30 @@ package com.example.galgeboi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    public static HistoryLogic history = new HistoryLogic();
+
     Button btnPlay, btnHistory;
     EditText inputName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //initiate game (parse context to method so historyLogic can use input-/outputstream)
+        Galgelogik.getInstance().initGame(getApplicationContext());
 
         //setup playbtn
         btnPlay = findViewById(R.id.btnPlay);
@@ -26,18 +36,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //get element inputName
         inputName = findViewById(R.id.inputName);
-
-        //add some content to the history list for show
-        history.addGame(new GameObj("jacob", "ballade", 4,true));
-        history.addGame(new GameObj("Kaj", "computer", 6,false));
-        history.addGame(new GameObj("Sofie", "hippie", 4,true));
-        history.addGame(new GameObj("Mads", "damer", 6,false));
-        history.addGame(new GameObj("Martin", "ballade", 1,true));
-        history.addGame(new GameObj("jacob", "ballade", 4,true));
-        history.addGame(new GameObj("Kaj", "computer", 6,false));
-        history.addGame(new GameObj("Sofie", "hippie", 4,true));
-        history.addGame(new GameObj("Mads", "damer", 6,false));
-        history.addGame(new GameObj("Martin", "ballade", 1,true));
 
     }
 

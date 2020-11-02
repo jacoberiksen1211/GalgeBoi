@@ -6,18 +6,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
-import java.util.List;
 
-public class GameArrayAdapter extends ArrayAdapter<GameObj> {
+/*
+ * Class that helps with creating the objects in the list in historyactivity.
+ * Custom adapter
+ */
+
+public class GameArrayAdapter extends ArrayAdapter<historyGameObj> {
     private Context context;
     private int recourse;
 
-    public GameArrayAdapter(Context context, int resource, ArrayList<GameObj> objects) {
+    public GameArrayAdapter(Context context, int resource, ArrayList<historyGameObj> objects) {
         super(context, resource, objects);
         this.context = context;
         this.recourse = resource;
@@ -27,12 +29,10 @@ public class GameArrayAdapter extends ArrayAdapter<GameObj> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         String name = getItem(position).getPlayerName();
-        String date = getItem(position).getDate().toString();
+        String date = getItem(position).getDate();
         String word = getItem(position).getWord();
         int wrongGuessCount = getItem(position).getWrongGuessCount();
         boolean gameWonBool = getItem(position).isGameWon();
-
-        //GameObj game = new GameObj(name, word, wrongGuessCount, gameWonBool);
 
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(recourse, parent, false);
