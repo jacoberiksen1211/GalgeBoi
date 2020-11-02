@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /*
  * Class that contains the history of games in a list of GameObjects
  * Handles saving and loading game history from local storage
@@ -41,7 +43,7 @@ public class HistoryLogic {
                 game.isGameWon() + ";" +
                 game.getDate() + "\n";
 
-        // setup outpustream
+        // setup outpustream and output the gameString
         FileOutputStream outputStream = null;
         try {
             outputStream =  context.openFileOutput(FILE_NAME, context.MODE_APPEND);
@@ -84,6 +86,19 @@ public class HistoryLogic {
                 String[] gameParam = gameString.split(";");
                 gameList.add(0, (new historyGameObj(gameParam[0], gameParam[1], Integer.parseInt(gameParam[2]), Boolean.parseBoolean(gameParam[3]), gameParam[4])));
             }
+        }
+    }
+
+    public void clearHistory(){
+        gameList.clear();
+        // setup outpustream and output nothing with MODE_PRIVATE, which overrides instead of appends
+        FileOutputStream outputStream = null;
+        try {
+            outputStream =  context.openFileOutput(FILE_NAME, MODE_PRIVATE);
+            outputStream. write("".getBytes());
+            outputStream.close();
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 

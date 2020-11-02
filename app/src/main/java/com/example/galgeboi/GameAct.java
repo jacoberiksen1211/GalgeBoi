@@ -75,7 +75,7 @@ public class GameAct extends AppCompatActivity implements View.OnClickListener {
         //hvis spillet er vundet
         if(Galgelogik.getInstance().isGameWon()){
             //adding game to history
-            Galgelogik.getInstance().addGameToHistory(new historyGameObj(playerName,Galgelogik.getInstance().getFullWord(),Galgelogik.getInstance().getWrongLetterCount(), true, "freshDate"));
+            Galgelogik.getInstance().getHistoryLogic().addGame(new historyGameObj(playerName,Galgelogik.getInstance().getFullWord(),Galgelogik.getInstance().getWrongLetterCount(), true, "freshDate"));
             //create intent and add name to data transfer
             Intent i = new Intent(this, WinnerAct.class);
             i.putExtra("name", playerName);
@@ -86,7 +86,7 @@ public class GameAct extends AppCompatActivity implements View.OnClickListener {
         //hvis spillet er tabt
         else if(Galgelogik.getInstance().isGameLost()){
             //Add new gameobject to history with the given information
-            Galgelogik.getInstance().addGameToHistory(new historyGameObj(playerName,Galgelogik.getInstance().getFullWord(),Galgelogik.getInstance().getWrongLetterCount(), false, "freshDate"));
+            Galgelogik.getInstance().getHistoryLogic().addGame(new historyGameObj(playerName,Galgelogik.getInstance().getFullWord(),Galgelogik.getInstance().getWrongLetterCount(), false, "freshDate"));
             //create intent and add name to data transfer
             Intent i = new Intent(this, LoserAct.class);
             i.putExtra("name", playerName);

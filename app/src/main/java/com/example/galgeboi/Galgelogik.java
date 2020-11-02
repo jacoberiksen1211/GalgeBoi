@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Random;
 
 public class Galgelogik {
-  private HistoryLogic history;
+  private HistoryLogic historyLogic;
   private ArrayList<String> wordList = new ArrayList<String>();
   private String fullWord;
   private ArrayList<String> usedLetters = new ArrayList<String>();
@@ -37,7 +37,7 @@ public class Galgelogik {
 
   //Initiates history, adds words to wordlist and resets game state
   public void initGame(Context context){
-    history = new HistoryLogic(context);
+    historyLogic = new HistoryLogic(context);
     wordList.add("bil");
     wordList.add("computer");
     wordList.add("programmering");
@@ -84,11 +84,8 @@ public class Galgelogik {
     return gameLost;
   }
 
-  public ArrayList<historyGameObj> getGameHistory(){
-    return history.getGameList();
-  }
-  public void addGameToHistory(historyGameObj game){
-    history.addGame(game);
+  public HistoryLogic getHistoryLogic(){
+    return historyLogic;
   }
 
   public void resetGame() {
