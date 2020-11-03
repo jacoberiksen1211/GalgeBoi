@@ -1,14 +1,7 @@
 package com.example.galgeboi;
 
 import android.content.Context;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Random;
 
 public class Galgelogik {
@@ -36,24 +29,15 @@ public class Galgelogik {
   }
 
   //Initiates history, adds words to wordlist and resets game state
-  public void initGame(Context context){
+  public void initGameHistory(Context context){
     historyLogic = new HistoryLogic(context);
-    wordList.add("bil");
-    wordList.add("computer");
-    wordList.add("programmering");
-    wordList.add("motorvej");
-    wordList.add("busrute");
-    wordList.add("gangsti");
-    wordList.add("skovsnegl");
-    wordList.add("solsort");
-    wordList.add("nitten");
-    wordList.add("telefon");
-    wordList.add("kaffe");
-    wordList.add("kniv");
-    wordList.add("æbleskive");
-    wordList.add("toilet");
-    wordList.add("skolebænk");
-    resetGame();
+  }
+
+  public void initWordList(String type){
+    wordList.clear();
+    WordListFactory wlFactory = new WordListFactory();
+    WordListBuilder wlBuilder = wlFactory.createWordListBuilder(type);
+    wordList = wlBuilder.getWordList();
   }
 
   public ArrayList<String> getUsedLetters() {
@@ -135,56 +119,17 @@ public class Galgelogik {
     updateVisibleWord();
   }
 
-  public static String hentUrl(String url) throws IOException {
-    System.out.println("Henter data fra " + url);
-    BufferedReader br = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
-    StringBuilder sb = new StringBuilder();
-    String linje = br.readLine();
-    while (linje != null) {
-      sb.append(linje + "\n");
-      linje = br.readLine();
-    }
-    return sb.toString();
-  }
 
 
-  /**
-   * Hent ord fra DRs forside (https://dr.dk)
-   */
-  public void hentOrdFraDr() throws Exception {
-    String data = hentUrl("https://dr.dk");
-    //System.out.println("data = " + data);
 
-    data = data.substring(data.indexOf("<body")). // fjern headere
-            replaceAll("<.+?>", " ").toLowerCase(). // fjern tags
-            replaceAll("&#198;", "æ"). // erstat HTML-tegn
-            replaceAll("&#230;", "æ"). // erstat HTML-tegn
-            replaceAll("&#216;", "ø"). // erstat HTML-tegn
-            replaceAll("&#248;", "ø"). // erstat HTML-tegn
-            replaceAll("&oslash;", "ø"). // erstat HTML-tegn
-            replaceAll("&#229;", "å"). // erstat HTML-tegn
-            replaceAll("[^a-zæøå]", " "). // fjern tegn der ikke er bogstaver
-            replaceAll(" [a-zæøå] "," "). // fjern 1-bogstavsord
-            replaceAll(" [a-zæøå][a-zæøå] "," "); // fjern 2-bogstavsord
-
-    System.out.println("data = " + data);
-    System.out.println("data = " + Arrays.asList(data.split("\\s+")));
-    wordList.clear();
-    wordList.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
-
-    System.out.println("muligeOrd = " + wordList);
-    resetGame();
-  }
-
-
-  /**
+  /*
    * Hent ord og sværhedsgrad fra et online regneark. Du kan redigere i regnearket, på adressen
    * https://docs.google.com/spreadsheets/d/1RnwU9KATJB94Rhr7nurvjxfg09wAHMZPYB3uySBPO6M/edit?usp=sharing
    * @param sværhedsgrader en streng med de tilladte sværhedsgrader - f.eks "3" for at medtage kun svære ord, eller "12" for alle nemme og halvsvære ord
    * @throws Exception
    */
 
-  public void hentOrdFraRegneark(String sværhedsgrader) throws Exception {
+  /*public void hentOrdFraRegneark(String sværhedsgrader) throws Exception {
     String id = "1RnwU9KATJB94Rhr7nurvjxfg09wAHMZPYB3uySBPO6M";
 
     System.out.println("Henter data som kommasepareret CSV fra regnearket https://docs.google.com/spreadsheets/d/"+id+"/edit?usp=sharing");
@@ -207,5 +152,5 @@ public class Galgelogik {
 
     System.out.println("muligeOrd = " + wordList);
     resetGame();
-  }
+  }*/
 }

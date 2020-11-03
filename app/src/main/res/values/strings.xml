@@ -2,8 +2,15 @@
     <string name="app_name">GalgeBoi</string>
 
     <!--    main Activity -->
-    <string name="main_info">Indtast dit navn nedenfor og tryk PLAY! for at starte spillet. \nDer vil automatisk blive fundet et ord, som du skal gætte. \nGod fornøjelse!</string>
+    <string name="main_info">Indtast dit navn nedenfor og tryk SPIL! for at starte spillet.
+        \nDer vil automatisk blive fundet et ord, som du skal gætte.
+        \nOrdliste mode: ONLINE henter ord fra hjemmeside dr.dk
+        \nOrdliste mode: OFFLINE benytter lokal liste af ord
+        \nGod fornøjelse!</string>
 
     <!--    game Activity -->
-    <string name="game_info">Vejledning:\nOrdet du skal gætte vises øverst som *****.\nGæt på 1 bogstav af gangen.\nHvis ordet indeholder bogstavet, som du gættede afdækkes disse bogstaver. Ellers tegnes en streg mere på galgen.\nAfdæk hele ordet før GalgeBoi bliver hængt.</string>
+    <string name="game_info">Vejledning:\nOrdet du skal gætte vises øverst som *****.
+        \nGæt på 1 bogstav af gangen.
+        \nHvis ordet indeholder bogstavet, som du gættede afdækkes disse bogstaver. Ellers tegnes en streg mere på galgen.
+        \nAfdæk hele ordet før GalgeBoi bliver hængt.</string>
 </resources>

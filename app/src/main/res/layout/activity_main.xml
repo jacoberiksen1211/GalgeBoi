@@ -9,37 +9,51 @@
 
     <TextView
         android:id="@+id/mainTxtWelc"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="Velkommen til GalgeBoi"
         android:textColor="#000000"
         android:textSize="42sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.153" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/mainTxtInfo"
-        android:layout_width="320dp"
-        android:layout_height="99dp"
-        android:layout_marginTop="68dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:lineSpacingExtra="4sp"
         android:text="@string/main_info"
         android:textAlignment="center"
         android:textColor="#000000"
+        android:textSize="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainTxtWelc" />
 
     <Button
+        android:id="@+id/btnPlay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="#66BB6A"
+        android:text="PLAY!"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputName" />
+
+    <Button
         android:id="@+id/mainBtnHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="16dp"
         android:background="#26A69A"
         android:text="Spilhistorik"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,27 +65,54 @@
         android:id="@+id/inputName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="192dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:gravity="center"
+        android:hint="Navn"
         android:inputType="textPersonName"
-        android:text="Navn"
+        android:textColorHint="#595959"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainTxtWelc" />
+        app:layout_constraintTop_toBottomOf="@+id/main_mode_txt" />
 
-    <Button
-        android:id="@+id/btnPlay"
+    <TextView
+        android:id="@+id/main_mode_txt"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Ordliste mode:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/main_modeChoice_txt"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainTxtInfo" />
+
+    <TextView
+        android:id="@+id/main_modeChoice_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:background="#66BB6A"
-        android:text="PLAY!"
+        android:background="#19000000"
+        android:text="OFFLINE"
         android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/main_mode_txt"
+        app:layout_constraintEnd_toStartOf="@+id/main_changeMode_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/main_mode_txt"
+        app:layout_constraintTop_toTopOf="@+id/main_mode_txt" />
+
+    <Button
+        android:id="@+id/main_changeMode_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#26A69A"
+        android:text="skift"
+        app:layout_constraintBottom_toBottomOf="@+id/main_modeChoice_txt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputName" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/main_modeChoice_txt"
+        app:layout_constraintTop_toTopOf="@+id/main_modeChoice_txt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
