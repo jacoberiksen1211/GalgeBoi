@@ -29,7 +29,7 @@ public class OnlineWordListBuilder extends WordListBuilder {
     /*
      * Hent ord fra DRs forside (https://dr.dk)
      */
-    public void hentOrdFraDr() throws Exception {
+    private void hentOrdFraDr() throws Exception {
         String data = hentUrl("https://dr.dk");
         //System.out.println("data = " + data);
         System.out.println("data HENTET");
@@ -53,7 +53,7 @@ public class OnlineWordListBuilder extends WordListBuilder {
         System.out.println("muligeOrd = " + getWordList());
     }
 
-    public static String hentUrl(String url) throws IOException {
+    private String hentUrl(String url) throws IOException {
         System.out.println("Henter data fra " + url);
         BufferedReader br = new BufferedReader(new InputStreamReader(new URL(url).openStream()));
         StringBuilder sb = new StringBuilder();

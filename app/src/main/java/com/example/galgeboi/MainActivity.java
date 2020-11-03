@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -46,11 +47,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if(v==btnPlay){
+            if(inputName.getText().toString().equals("")){
+                Toast.makeText(this, "Indtast navn først", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             //initiate word list using choice
             bgThread.execute(() ->{
                 try {
                     Galgelogik.getInstance().initWordList(modeChoice.getText().toString());
-                    uiThread.post(() -> {//move to game
+                    uiThread.post(() -> {
+                        //move to game
                         Intent i = new Intent(this,GameAct.class);
                         i.putExtra("name",inputName.getText().toString());
                         startActivity(i);

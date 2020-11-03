@@ -1,6 +1,6 @@
 package com.example.galgeboi;
 
-public class WordListFactory {
+public class WordListBuilderFactory {
     public WordListBuilder createWordListBuilder(String type){
         if(type.equals("OFFLINE")){
             return new OfflineWordListBuilder();
@@ -9,7 +9,6 @@ public class WordListFactory {
             return new OnlineWordListBuilder();
         }
         else {
-            System.out.println("WORDBUILDER STRING FINDES IKKE");
             return null;
         }
     }
