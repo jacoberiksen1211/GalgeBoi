@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class OfflineWordListBuilder extends WordListBuilder {
 
+    /*
+    * builds offline wordlist for the game.
+     */
+
     public OfflineWordListBuilder(){
         //initiate arraylist
         setWordList(new ArrayList<>());
@@ -12,8 +16,9 @@ public class OfflineWordListBuilder extends WordListBuilder {
     }
     @Override
     public void createWordList(){
+        //hardcoded wordlist for offline mode
         getWordList().add("glas");
-        /*getWordList().add("bil");
+        getWordList().add("bil");
         getWordList().add("computer");
         getWordList().add("programmering");
         getWordList().add("motorvej");
@@ -27,6 +32,6 @@ public class OfflineWordListBuilder extends WordListBuilder {
         getWordList().add("kniv");
         getWordList().add("æbleskive");
         getWordList().add("toilet");
-        getWordList().add("skolebænk");*/
+        getWordList().add("skolebænk");
     }
 }
