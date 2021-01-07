@@ -11,7 +11,7 @@
         android:id="@+id/mainTxtWelc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Velkommen til GalgeBoi"
         android:textColor="#000000"
@@ -25,7 +25,7 @@
         android:id="@+id/mainTxtInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:lineSpacingExtra="4sp"
         android:text="@string/main_info"
         android:textAlignment="center"
@@ -40,54 +40,64 @@
         android:id="@+id/btnPlay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
         android:background="#66BB6A"
         android:text="SPIL!"
         android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/mainBtnHistory"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputName" />
+        app:layout_constraintStart_toEndOf="@+id/mainBtnHistory"
+        app:layout_constraintTop_toTopOf="@+id/mainBtnHistory" />
 
     <Button
         android:id="@+id/mainBtnHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
         android:background="#26A69A"
         android:text="Spilhistorik"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintEnd_toStartOf="@+id/btnPlay"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
+        app:layout_constraintTop_toBottomOf="@+id/inputName" />
 
     <EditText
         android:id="@+id/inputName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:gravity="center"
         android:hint="Navn"
         android:inputType="textPersonName"
         android:textColorHint="#595959"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_mode_txt" />
+        app:layout_constraintTop_toBottomOf="@+id/main_mode_txt2" />
 
     <TextView
         android:id="@+id/main_mode_txt"
         android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
         android:text="Ordliste mode:"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/main_modeChoice_txt"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainTxtInfo" />
+
+    <TextView
+        android:id="@+id/main_mode_txt2"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Vælg selv ord:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_mode_txt" />
 
     <TextView
         android:id="@+id/main_modeChoice_txt"
@@ -103,16 +113,39 @@
         app:layout_constraintStart_toEndOf="@+id/main_mode_txt"
         app:layout_constraintTop_toTopOf="@+id/main_mode_txt" />
 
+    <TextView
+        android:id="@+id/main_modeChoice_txt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#19000000"
+        android:text="NEJ"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/main_mode_txt2"
+        app:layout_constraintEnd_toStartOf="@+id/chooseWordBtn"
+        app:layout_constraintStart_toEndOf="@+id/main_mode_txt2"
+        app:layout_constraintTop_toTopOf="@+id/main_mode_txt2" />
+
     <Button
         android:id="@+id/main_changeMode_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
         android:background="#26A69A"
         android:text="skift"
         app:layout_constraintBottom_toBottomOf="@+id/main_modeChoice_txt"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/main_modeChoice_txt"
         app:layout_constraintTop_toTopOf="@+id/main_modeChoice_txt" />
+
+    <Button
+        android:id="@+id/chooseWordBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:background="#26A69A"
+        android:text="SKIFT"
+        app:layout_constraintBottom_toBottomOf="@+id/main_modeChoice_txt2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/main_modeChoice_txt2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

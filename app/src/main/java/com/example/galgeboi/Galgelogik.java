@@ -15,6 +15,20 @@ public class Galgelogik {
   private boolean gameWon;
   private boolean gameLost;
 
+  public ArrayList<String> getWordList() {
+    return wordList;
+  }
+
+  public boolean isManualWordChoice() {
+    return manualWordChoice;
+  }
+
+  public void setManualWordChoice(boolean manualWordChoice) {
+    this.manualWordChoice = manualWordChoice;
+  }
+
+  private boolean manualWordChoice;
+
   //setup singleton
   private static Galgelogik instance = null;
   //singleton has private constructor
@@ -78,8 +92,15 @@ public class Galgelogik {
     gameWon = false;
     gameLost = false;
     if (wordList.isEmpty()) throw new IllegalStateException("Listen over ord er tom!");
-    fullWord = wordList.get(new Random().nextInt(wordList.size()));
+    //select random word from word list if manual choice is OFF
+    if(manualWordChoice==false){
+      fullWord = wordList.get(new Random().nextInt(wordList.size()));
+    }
     updateVisibleWord();
+  }
+
+  public void setFullWord(String fullWord){
+    this.fullWord = fullWord;
   }
 
   private void updateVisibleWord() {

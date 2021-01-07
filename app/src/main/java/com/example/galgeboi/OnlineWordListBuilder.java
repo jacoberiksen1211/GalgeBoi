@@ -49,8 +49,16 @@ public class OnlineWordListBuilder extends WordListBuilder {
         System.out.println("data = " + Arrays.asList(data.split("\\s+")));
         getWordList().clear();
         getWordList().addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
+        System.out.println("muligeOrd = " + getWordList() + "\n antal ord: " + getWordList().size());
 
-        System.out.println("muligeOrd = " + getWordList());
+        //below is added to try and fix problem with one and two letter words
+        for(int i = getWordList().size()-1; i != 0; i--){
+            if(((String) getWordList().get(i)).length() < 3){
+                System.out.println("removing: " + getWordList().get(i) + "   (item: " + i);
+                getWordList().remove(i);
+            }
+        }
+        System.out.println("muligeOrd = " + getWordList() + "\n antal ord: " + getWordList().size());
     }
 
     private String hentUrl(String url) throws IOException {

@@ -26,7 +26,7 @@ public class HistoryAct extends AppCompatActivity implements View.OnClickListene
 
         //fill gameHistory into listview using custom adapter
         listView = findViewById(R.id.listView);
-        adapter = new GameArrayAdapter(this, R.layout.adapter_layout, Galgelogik.getInstance().getHistoryLogic().getGameList());
+        adapter = new GameArrayAdapter(this, R.layout.game_adapter_layout, Galgelogik.getInstance().getHistoryLogic().getGameList());
         listView.setAdapter(adapter);
 
         isListEmpty();

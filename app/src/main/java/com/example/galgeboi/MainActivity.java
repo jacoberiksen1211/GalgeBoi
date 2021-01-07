@@ -17,17 +17,15 @@ import java.util.concurrent.Executors;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Executor bgThread = Executors.newSingleThreadExecutor();
     Handler uiThread = new Handler();
-    Button btnPlay, btnHistory, btnModeSwitch;
+    Button btnPlay, btnHistory, btnModeSwitch, btnChooseWordSwitch;
     EditText inputName;
-    TextView modeChoice;
+    TextView modeChoice, chooseWordChoice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         //initiate game history(parse context to method so historyLogic can use input-/outputstream)
         Galgelogik.getInstance().initGameHistory(getApplicationContext());
-
         //get elements
         btnPlay = findViewById(R.id.btnPlay);
         btnHistory = findViewById(R.id.mainBtnHistory);
@@ -35,16 +33,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         modeChoice = findViewById(R.id.main_modeChoice_txt);
         inputName = findViewById(R.id.inputName);
+        chooseWordChoice = findViewById(R.id.main_modeChoice_txt2);
 
         // set onclicklisteners
         btnPlay.setOnClickListener(this);
         btnHistory.setOnClickListener(this);
         btnModeSwitch.setOnClickListener(this);
+
+        //button to set manual choice of word mode
+        Galgelogik.getInstance().setManualWordChoice(false);
+        btnChooseWordSwitch = findViewById(R.id.chooseWordBtn);
+        btnChooseWordSwitch.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
-        if(v==btnPlay){
+        if(v==btnChooseWordSwitch){
+            //switch between manual choice of word ON or OFF
+            if(chooseWordChoice.getText().toString().equals("JA")){
+                chooseWordChoice.setText("NEJ");
+                Galgelogik.getInstance().setManualWordChoice(false);
+            }
+            else {
+                chooseWordChoice.setText("JA");
+                Galgelogik.getInstance().setManualWordChoice(true);
+            }
+        }
+        else if(v==btnPlay){
             if(inputName.getText().toString().equals("")){
                 inputName.setError("Indtast navn");
                 Toast.makeText(this, "Indtast navn først", Toast.LENGTH_SHORT).show();
@@ -56,10 +72,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     Galgelogik.getInstance().initWordList(modeChoice.getText().toString());
                     uiThread.post(() -> {
-                        //move to game
-                        Intent i = new Intent(this,GameAct.class);
-                        i.putExtra("name",inputName.getText().toString());
-                        startActivity(i);
+                        if(Galgelogik.getInstance().isManualWordChoice()){
+                            //manual word choice ON, move to word list
+                            Intent i = new Intent(this, ChooseWordAct.class);
+                            i.putExtra("name",inputName.getText().toString());
+                            startActivity(i);
+                        }
+                        else {
+                            //manual word choice OFF
+                            //move to game
+                            Intent i = new Intent(this, GameAct.class);
+                            i.putExtra("name", inputName.getText().toString());
+                            startActivity(i);
+                        }
                     });
                 }
                 catch (Exception e){

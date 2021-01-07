@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 
 public class GameAct extends AppCompatActivity implements View.OnClickListener {
+    private static final String TAG = "GameAct";
     Button btnGuess, btnEnd;
     TextView txtWord, txtStatus, txtUsed;
     EditText inputLetter;
@@ -28,7 +30,14 @@ public class GameAct extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        //reset game first
+
+        /*//if there was a manual choice of word before start
+        if(Galgelogik.getInstance().isManualWordChoice()){
+            Log.d(TAG, "onCreate: manual choice on");
+            String chosenword = getIntent().getStringExtra("word");
+            Galgelogik.getInstance().setFullWord(chosenword);
+        }*/
+        //reset game (if manual word ON then no random word selection )
         Galgelogik.getInstance().resetGame();
         //getting elements
         btnGuess = findViewById(R.id.gameBtnGuess);
