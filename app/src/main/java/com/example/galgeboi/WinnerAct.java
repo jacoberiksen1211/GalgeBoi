@@ -3,10 +3,13 @@ package com.example.galgeboi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 
 public class WinnerAct extends AppCompatActivity implements View.OnClickListener {
     private TextView txtTitle, txtStatus;
@@ -33,6 +36,11 @@ public class WinnerAct extends AppCompatActivity implements View.OnClickListener
 
         txtTitle.setText("Tillykke " + name + "!\nDU HAR VUNDET!");
         txtStatus.setText("Du gættede ordet \"" + word + "\"\n med kun " + wrongLetterCount + " forkerte gæt");
+
+        //play winner music
+        MediaPlayer audio =  MediaPlayer.create(this, R.raw.thebest);
+        audio.start();
+
     }
 
     @Override

@@ -2,7 +2,10 @@ package com.example.galgeboi;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +21,9 @@ public class GameAct extends AppCompatActivity implements View.OnClickListener {
     ImageView imgGalge;
     String playerName;
     int imgInts[] = new int[7];
+
+    //mediaplayers for right/wrong sounds
+    MediaPlayer rightsound, wrongsound;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +57,10 @@ public class GameAct extends AppCompatActivity implements View.OnClickListener {
         imgInts[4] = R.drawable.forkert4;
         imgInts[5] = R.drawable.forkert5;
         imgInts[6] = R.drawable.forkert6;
+
+        //create sound players for right / wrong guess
+        rightsound = MediaPlayer.create(this, R.raw.rightsound);
+        wrongsound = MediaPlayer.create(this, R.raw.wrongsound);
     }
 
     @Override
@@ -67,7 +77,28 @@ public class GameAct extends AppCompatActivity implements View.OnClickListener {
             updateUI();
         }
         else if(v==btnEnd){
-            finish();
+            // from https://stackoverflow.com/questions/2478517/how-to-display-a-yes-no-dialog-box-on-android
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            //Yes button clicked
+                            //give up
+                            finish();
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            //No button clicked
+                            break;
+                    }
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+            builder.setMessage("Giv op?").setPositiveButton("Ja", dialogClickListener)
+                    .setNegativeButton("Nej", dialogClickListener).show();
+
         }
     }
 
@@ -113,9 +144,11 @@ public class GameAct extends AppCompatActivity implements View.OnClickListener {
         //opdater status tekst
         if(Galgelogik.getInstance().isLastGuessCorrect()){
             txtStatus.setText("Du gættede rigtigt!");
+            rightsound.start();
         }
         else{
             txtStatus.setText("Du gættede forkert. Du har " + (6 - Galgelogik.getInstance().getWrongLetterCount()) + " forsøg igen før GalgeBoi bliver hængt.");
+            wrongsound.start();
         }
 
     }

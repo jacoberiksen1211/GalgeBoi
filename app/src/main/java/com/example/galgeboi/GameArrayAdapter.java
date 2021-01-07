@@ -17,12 +17,12 @@ import java.util.ArrayList;
 
 public class GameArrayAdapter extends ArrayAdapter<historyGameObj> {
     private Context context;
-    private int recourse;
+    private int resource;
 
     public GameArrayAdapter(Context context, int resource, ArrayList<historyGameObj> objects) {
         super(context, resource, objects);
         this.context = context;
-        this.recourse = resource;
+        this.resource = resource;
     }
 
     @NonNull
@@ -35,7 +35,7 @@ public class GameArrayAdapter extends ArrayAdapter<historyGameObj> {
         boolean gameWonBool = getItem(position).isGameWon();
 
         LayoutInflater inflater = LayoutInflater.from(context);
-        convertView = inflater.inflate(recourse, parent, false);
+        convertView = inflater.inflate(resource, parent, false);
 
         TextView tvName = convertView.findViewById(R.id.tvName);
         TextView tvDate = convertView.findViewById(R.id.tvDate);

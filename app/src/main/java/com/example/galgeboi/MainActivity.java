@@ -40,14 +40,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnPlay.setOnClickListener(this);
         btnHistory.setOnClickListener(this);
         btnModeSwitch.setOnClickListener(this);
-
-
     }
 
     @Override
     public void onClick(View v) {
         if(v==btnPlay){
             if(inputName.getText().toString().equals("")){
+                inputName.setError("Indtast navn");
                 Toast.makeText(this, "Indtast navn først", Toast.LENGTH_SHORT).show();
                 return;
             }
